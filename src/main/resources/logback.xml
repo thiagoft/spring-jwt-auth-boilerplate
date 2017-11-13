@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true" scan="true" scanPeriod="30 seconds">
 
-    <property name="LOG_PATH" value="/thiagoft/log/spring-jwt-auth-boilerplate" />
+    <property name="LOG_PATH" value="/myApp/log/spring-jwt-auth-boilerplate" />
 
     <property name="LOG_ARCHIVE" value="${LOG_PATH}/archive" />
     <timestamp key="timestamp-by-second" datePattern="ddMMyyyy'T'HHmmss"/>

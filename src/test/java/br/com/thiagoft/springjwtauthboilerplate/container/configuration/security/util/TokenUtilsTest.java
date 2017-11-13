@@ -8,13 +8,13 @@ import org.junit.Test;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TokenUtilsTest {
 
@@ -83,15 +83,12 @@ public class TokenUtilsTest {
     }
 
     @Test
-    public void shouldReturnFalseForExpiredToken() {
-
-    }
-
-    @Test
     public void shouldReturnFalseForANonRefreshableToken() {
         final String token = tokenUtils.generateToken(userDetails);
+        Calendar lastPasswordReset = new GregorianCalendar();
+        lastPasswordReset.add(Calendar.HOUR,1);
 
-        assertFalse(tokenUtils.canTokenBeRefreshed(token,new Date()));
+        assertFalse(tokenUtils.canTokenBeRefreshed(token,lastPasswordReset.getTime()));
     }
 
     @Test
