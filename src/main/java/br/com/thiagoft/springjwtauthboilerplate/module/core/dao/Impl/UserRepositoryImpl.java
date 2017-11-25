@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -20,6 +21,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findByUsername(String username) {
-        return listOfUsers.get(0);
+        try {
+            return listOfUsers.stream().findAny().filter(user -> user.getUsername().equals(username)).get();
+        } catch(NoSuchElementException noElement) {
+            noElement.printStackTrace();
+            return new User();
+        }
     }
 }
