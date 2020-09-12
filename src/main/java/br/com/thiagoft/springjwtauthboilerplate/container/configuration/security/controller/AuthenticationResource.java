@@ -6,10 +6,7 @@ import br.com.thiagoft.springjwtauthboilerplate.container.configuration.security
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,7 +23,7 @@ public class AuthenticationResource {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<?> getToken(@RequestBody AuthenticationRequest userForAuthentication) {
         AuthenticationResponse authenticationResponse = userAuthentication.validateUser(userForAuthentication).getAuthenticationResponse();
 
