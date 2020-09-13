@@ -43,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf() //Adds CSRF support.
+                .csrf()
                 .disable() //Disabling CSRF support
                 .exceptionHandling() //Allows configuring exception handling.
                 .authenticationEntryPoint(authenticationEntryPoint)

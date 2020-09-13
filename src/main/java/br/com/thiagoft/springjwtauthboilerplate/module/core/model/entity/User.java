@@ -3,6 +3,7 @@ package br.com.thiagoft.springjwtauthboilerplate.module.core.model.entity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class User {
 
@@ -48,19 +49,24 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-
-        if (!username.equals(user.username)) return false;
-        if (!password.equals(user.password)) return false;
-        return email.equals(user.email);
+        return Objects.equals(username, user.username) &&
+                Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        int result = username.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + email.hashCode();
-        return result;
+        return Objects.hash(username, email);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", lastPasswordReset=" + lastPasswordReset +
+                ", creationDate=" + creationDate +
+                '}';
     }
 }
