@@ -20,7 +20,6 @@ public class AuthenticationResource {
     @Autowired
     public AuthenticationResource(UserAuthentication userAuthentication) {
         this.userAuthentication = userAuthentication;
-
     }
 
     @PostMapping

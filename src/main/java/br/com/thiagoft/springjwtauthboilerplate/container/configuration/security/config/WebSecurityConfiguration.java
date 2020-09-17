@@ -4,6 +4,7 @@ import br.com.thiagoft.springjwtauthboilerplate.container.configuration.security
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,16 +34,29 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception
+    {
+        authenticationManagerBuilder.parentAuthenticationManager(authenticationManagerBean())
+                .userDetailsService(userDetailsService);
+    }
+
+    @Bean
     public AuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
         AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter();
         authenticationTokenFilter.setAuthenticationManager(super.authenticationManagerBean());
         return authenticationTokenFilter;
     }
 
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+//                .headers().frameOptions().sameOrigin() //Allows frame from the same origin
+//                .and()
                 .csrf()
                 .disable() //Disabling CSRF support
                 .exceptionHandling() //Allows configuring exception handling.
@@ -53,8 +67,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //STATELESS - Spring Security will never create an HttpSession and it will never use it to obtain the SecurityContext
                 .and()
                 .authorizeRequests() //Request configuration
-                .antMatchers("/auth").permitAll() //Permit all from this path
-                .anyRequest().authenticated(); //From any request check the authentication
+                .antMatchers("/auth").permitAll(); //Permit all from this path
+//                .anyRequest().authenticated(); //From any request check the authentication
 
         //Filter for JWT based authentication
         httpSecurity

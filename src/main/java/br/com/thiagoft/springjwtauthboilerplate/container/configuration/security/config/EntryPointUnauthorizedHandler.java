@@ -1,4 +1,4 @@
-package br.com.thiagoft.springjwtauthboilerplate.container.configuration.security.model;
+package br.com.thiagoft.springjwtauthboilerplate.container.configuration.security.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
